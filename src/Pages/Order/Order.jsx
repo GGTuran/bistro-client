@@ -1,22 +1,25 @@
 /* eslint-disable no-unused-vars */
+import { useState } from "react";
 import orderImg from "../../../assets/shop/banner2.jpg";
 import useMenu from "../../Hooks/useMenu";
 import Cover from "../Shared/Cover/Cover";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import OrderTab from "./OrderTAb/OrderTab";
 
 
 const Order = () => {
+  const [tabIndex, setTabIndex] = useState(0);
     const [menu] = useMenu();
     const dessert = menu.filter((item) => item.category === "dessert");
     const soup = menu.filter((item) => item.category === "soup");
     const salad = menu.filter((item) => item.category === "salad");
     const pizza = menu.filter((item) => item.category === "pizza");
-    const offered = menu.filter((item) => item.category === "offered");
+    const drinks = menu.filter((item) => item.category === "drinks");
   return (
     <div>
       <Cover title="Order Food" img={orderImg}></Cover>
-      <Tabs defaultIndex={1} onSelect={(index) => console.log(index)}>
+      <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList>
           <Tab>Salad</Tab>
           <Tab>Pizza</Tab>
@@ -24,11 +27,21 @@ const Order = () => {
           <Tab>Dessert</Tab>
           <Tab>Drinks</Tab>
         </TabList>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
-        <TabPanel></TabPanel>
+        <TabPanel>
+         <OrderTab items={salad}></OrderTab>
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={pizza}></OrderTab>
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={soup}></OrderTab>
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={dessert}></OrderTab>
+        </TabPanel>
+        <TabPanel>
+          <OrderTab items={drinks}></OrderTab>
+        </TabPanel>
       </Tabs>
     </div>
   );
